@@ -6,6 +6,7 @@ import java.util.*;
 public class Bot {
     public static void main(String[] args) {
         String webhookUrl = System.getenv("SLACK_WEBHOOK_URL");
+        String message = System.getenv("SLACK_WEBHOOK_MSG");
 
         // Java 11 -> fetch
         HttpClient client = HttpClient.newHttpClient();
@@ -13,7 +14,8 @@ public class Bot {
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(webhookUrl))
             .header("Content-Type", "application/json")
-            .POST(HttpRequest.BodyPublishers.ofString("{\"text\":\"👍🏻\"}")) 
+            // .POST(HttpRequest.BodyPublishers.ofString("{\"text\":\"👍🏻\"}")) 
+            .POST(HttpRequest.BodyPublishers.ofString("{\"text\":\" + " + message + "\"}")) 
             .build();
         
         try {
